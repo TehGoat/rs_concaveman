@@ -1,7 +1,7 @@
 [package]
 name = "rs_concaveman"
 description = "Rust wrapper for concaveman-cpp"
-version = "1.0.1"
+version = "1.0.2"
 edition = "2021"
 authors = ["Ronny Karlsson"]
 license = "BSD-2-Clause"

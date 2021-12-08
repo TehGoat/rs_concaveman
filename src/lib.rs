@@ -24,7 +24,11 @@ extern "C" {
 pub mod location_trait;
 mod point_in_polygon;
 
-pub fn concaveman<T>(points: &[T], concavity: Option<f64>, length_threshold: Option<f64>)
+pub fn concaveman<T>(
+    points: &[T],
+    concavity: Option<f64>,
+    length_threshold: Option<f64>,
+) -> Vec<(f64, f64)>
 where
     T: LocationTrait,
 {
@@ -45,6 +49,8 @@ where
     let mut result: *mut libc::c_double = std::ptr::null_mut();
     let mut result_size: usize = 0;
 
+    let mut return_value: Vec<(f64, f64)> = Vec::new();
+
     unsafe {
         rust_concaveman_2d(
             converted_points.as_ptr(),
@@ -54,17 +60,19 @@ where
             concavity,
             length_threshold,
             &mut result,
-            &mut result_size
+            &mut result_size,
         );
 
-        let asd = slice::from_raw_parts(result, result_size * 2);
+        let converted_result = slice::from_raw_parts(result, result_size * 2);
 
         for i in (0..result_size * 2).step_by(2) {
-            println!("{}, {}", asd[i], asd[i+1]);
+            return_value.push((converted_result[i], converted_result[i + 1]));
         }
 
         free_points(&mut result);
     }
+
+    return_value
 }
 
 fn fast_convex_hull<T>(points: &[T]) -> Vec<usize>
@@ -176,9 +184,8 @@ where
 
 #[cfg(test)]
 mod tests {
-    use crate::{location_trait::LocationTrait, concaveman};
+    use crate::{concaveman, location_trait::LocationTrait};
 
-    
     impl LocationTrait for [f64; 2] {
         fn get_x(&self) -> f64 {
             self[0]
