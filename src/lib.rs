@@ -75,6 +75,22 @@ where
     return_value
 }
 
+pub fn concaveman_convex<T>(points: &[T]) -> Vec<(f64,f64)>
+where
+    T: LocationTrait
+{
+    let hull = fast_convex_hull(points);
+
+    hull
+    .iter()
+    .map(|index| {
+        let current_point = &points[*index];
+
+        (current_point.get_x(), current_point.get_y())
+    })
+    .collect()
+}
+
 fn fast_convex_hull<T>(points: &[T]) -> Vec<usize>
 where
     T: LocationTrait,
