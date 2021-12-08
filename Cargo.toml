@@ -4,7 +4,7 @@ description = "Rust wrapper for concaveman-cpp"
 version = "1.0.0"
 edition = "2021"
 authors = ["Ronny Karlsson"]
-license = "BSD 2-Clause License"
+license = "BSD-2-Clause"
 repository = "https://github.com/TehGoat/rs_concaveman"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
