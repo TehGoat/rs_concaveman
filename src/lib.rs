@@ -21,7 +21,7 @@ extern "C" {
     fn free_points(p_concave_points_c: *mut *mut libc::c_double);
 }
 
-mod location_trait;
+pub mod location_trait;
 mod point_in_polygon;
 
 pub fn concaveman<T>(points: &[T], concavity: Option<f64>, length_threshold: Option<f64>)
