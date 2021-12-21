@@ -39,10 +39,6 @@ void rust_concaveman_2d(double *points_c, size_t num_points,
 
     auto concave_points = concaveman<T, 16>(points, hull, concavity, lengthThreshold);
 
-    std::cout << "concave_points:" << std::endl;
-    for (auto &p : concave_points)
-        std::cout << p[0] << ", " << p[1] << std::endl;
-
     double *concave_points_c = *p_concave_points_c = (double*) malloc(sizeof(double) * 2 * concave_points.size());
     for (size_t i = 0; i < concave_points.size(); i++) {
         concave_points_c[i << 1] = concave_points[i][0];
